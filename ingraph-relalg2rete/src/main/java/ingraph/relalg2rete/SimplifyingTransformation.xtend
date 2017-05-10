@@ -5,6 +5,8 @@ import ingraph.optimization.patterns.UnnecessaryAllDifferentOperatorMatcher
 import ingraph.optimization.patterns.UnnecessaryJoinMatcher
 import ingraph.optimization.transformations.AbstractRelalgTransformation
 import relalg.RelalgContainer
+import ingraph.optimization.patterns.GetVerticesWithPropertiesMatcher
+import relalg.ArithmeticComparisonOperatorType
 
 class SimplifyingTransformation extends AbstractRelalgTransformation {
 
@@ -24,6 +26,7 @@ class SimplifyingTransformation extends AbstractRelalgTransformation {
 
 		statements.fireWhilePossible(unnecessaryJoinOperatorRule)
 		statements.fireWhilePossible(unnecessaryAllDifferentOperatorRule)
+		statements.fireWhilePossible(addSelectionForPropertiesRule)
 		container.simplifiedPlan = true
 		return container
 	}
@@ -49,6 +52,49 @@ class SimplifyingTransformation extends AbstractRelalgTransformation {
 		.action [ //
 			info('''unnecessaryAllDifferentOperatorRule fired for «allDifferentOperator»''')
 			changeChildOperator(parentOperator, allDifferentOperator, inputOperator)
+		].build
+	}
+
+
+	/**
+	 * [c] Add selection operator for properties
+	 */
+	protected def addSelectionForPropertiesRule() {
+		createRule() //
+		.precondition(GetVerticesWithPropertiesMatcher.querySpecification) //
+		.action [ //
+			val getVerticesOperator = getVerticesOperator
+			val vertexVariable = vertexVariable
+			val propertyList = propertyList
+			info('''getVerticesWithPropertiesMatcher fired for «getVerticesOperator»''')
+			
+			// TODO process more than a single list entry using a tree of ANDs
+			val selectionOperator = createSelectionOperator => [
+				condition = createArithmeticComparisonExpression => [
+					operator = ArithmeticComparisonOperatorType.EQUAL_TO
+					leftOperand = 
+						createVariableExpression => [
+							variable = createAttributeVariable => [
+								name = propertyList.entries.get(0).key
+								element = vertexVariable
+								namedElementContainer = container
+							]
+							expressionContainer = container
+						]
+					rightOperand = propertyList.entries.get(0).value
+					expressionContainer = container
+				]
+				input = getVerticesOperator
+			]
+			
+//			val simpleVertexVariable = createVertexVariable => [
+//				name = vertexVariable.name
+//				namedElementContainer = vertexVariable.namedElementContainer
+//			]
+//			getVerticesOperator.vertexVariable = simpleVertexVariable
+			vertexVariable.properties = null
+			
+			changeChildOperator(parentOperator, getVerticesOperator, selectionOperator)
 		].build
 	}
 

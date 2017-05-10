@@ -149,9 +149,9 @@ public final class GetVerticesAndExpandOperatorQuerySpecification extends BaseGe
       		));
       		//   find parentOperator(expandOperator, parentOperator)
       		new PositivePatternCall(body, new FlatTuple(var_expandOperator, var_parentOperator), ParentOperatorQuerySpecification.instance().getInternalQueryRepresentation());
-      		// 	find expandOperatorWithDefaultEdgeVariable(expandOperator)
+      		//   find expandOperatorWithDefaultEdgeVariable(expandOperator)
       		new PositivePatternCall(body, new FlatTuple(var_expandOperator), ExpandOperatorWithDefaultEdgeVariableQuerySpecification.instance().getInternalQueryRepresentation());
-      		// 	ExpandOperator.input(expandOperator, getVerticesOperator)
+      		//   ExpandOperator.input(expandOperator, getVerticesOperator)
       		new TypeConstraint(body, new FlatTuple(var_expandOperator), new EClassTransitiveInstancesKey((EClass)getClassifierLiteral("http://ingraph/relalg", "ExpandOperator")));
       		PVariable var__virtual_0_ = body.getOrCreateVariableByName(".virtual{0}");
       		new TypeConstraint(body, new FlatTuple(var_expandOperator, var__virtual_0_), new EStructuralFeatureInstancesKey(getFeatureLiteral("http://ingraph/relalg", "UnaryOperator", "input")));

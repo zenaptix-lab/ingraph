@@ -43,3 +43,17 @@ pattern emptyOrSingleVariableAllDifferentOperator(allDifferentOperator : AllDiff
 pattern allDifferentOperatorEdgeVariables(allDifferentOperator : AllDifferentOperator, edgeVariable : EdgeVariable) {
 	AllDifferentOperator.edgeVariables(allDifferentOperator, edgeVariable);
 }
+
+pattern getVerticesWithProperties(getVerticesOperator : GetVerticesOperator, vertexVariable : VertexVariable, 
+  parentOperator : Operator, propertyList : PropertyList
+) {
+  GetVerticesOperator.vertexVariable(getVerticesOperator, vertexVariable);
+  VertexVariable.properties(vertexVariable, propertyList);
+  count find propertyList(propertyList, _) != 0;
+  find parentOperator(getVerticesOperator, parentOperator);
+}
+
+pattern propertyList(list : PropertyList, entry : PropertyListEntry) {
+  PropertyList.entries(list, entry);
+}
+

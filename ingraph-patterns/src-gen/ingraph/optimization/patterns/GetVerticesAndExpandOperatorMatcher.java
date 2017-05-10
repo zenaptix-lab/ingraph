@@ -45,8 +45,8 @@ import relalg.Operator;
  * // [1] transformation for eliminating standard expand operators connected to a getVerticesOperator
  * pattern getVerticesAndExpandOperator(getVerticesOperator : GetVerticesOperator, expandOperator : ExpandOperator, parentOperator : Operator) {
  *   find parentOperator(expandOperator, parentOperator);
- * 	find expandOperatorWithDefaultEdgeVariable(expandOperator);
- * 	ExpandOperator.input(expandOperator, getVerticesOperator);
+ *   find expandOperatorWithDefaultEdgeVariable(expandOperator);
+ *   ExpandOperator.input(expandOperator, getVerticesOperator);
  *   GetVerticesOperator(getVerticesOperator);
  * }
  * </pre></code>

@@ -22,6 +22,8 @@
       <query-specification fqn="ingraph.optimization.patterns.unnecessaryAllDifferentOperator"/>
       <query-specification fqn="ingraph.optimization.patterns.emptyOrSingleVariableAllDifferentOperator"/>
       <query-specification fqn="ingraph.optimization.patterns.allDifferentOperatorEdgeVariables"/>
+      <query-specification fqn="ingraph.optimization.patterns.getVerticesWithProperties"/>
+      <query-specification fqn="ingraph.optimization.patterns.propertyList"/>
     </group>
   </extension>
   <extension id="ingraph.optimization.patterns.TrivialOptimizations" point="org.eclipse.viatra.query.runtime.queryspecification">

@@ -5,12 +5,16 @@ package ingraph.optimization.patterns;
 
 import ingraph.optimization.patterns.AllDifferentOperatorEdgeVariablesMatcher;
 import ingraph.optimization.patterns.EmptyOrSingleVariableAllDifferentOperatorMatcher;
+import ingraph.optimization.patterns.GetVerticesWithPropertiesMatcher;
 import ingraph.optimization.patterns.JoinOnDualMatcher;
+import ingraph.optimization.patterns.PropertyListMatcher;
 import ingraph.optimization.patterns.UnnecessaryAllDifferentOperatorMatcher;
 import ingraph.optimization.patterns.UnnecessaryJoinMatcher;
 import ingraph.optimization.patterns.util.AllDifferentOperatorEdgeVariablesQuerySpecification;
 import ingraph.optimization.patterns.util.EmptyOrSingleVariableAllDifferentOperatorQuerySpecification;
+import ingraph.optimization.patterns.util.GetVerticesWithPropertiesQuerySpecification;
 import ingraph.optimization.patterns.util.JoinOnDualQuerySpecification;
+import ingraph.optimization.patterns.util.PropertyListQuerySpecification;
 import ingraph.optimization.patterns.util.UnnecessaryAllDifferentOperatorQuerySpecification;
 import ingraph.optimization.patterns.util.UnnecessaryJoinQuerySpecification;
 import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine;
@@ -30,6 +34,8 @@ import org.eclipse.viatra.query.runtime.exception.ViatraQueryException;
  * <li>unnecessaryAllDifferentOperator</li>
  * <li>emptyOrSingleVariableAllDifferentOperator</li>
  * <li>allDifferentOperatorEdgeVariables</li>
+ * <li>getVerticesWithProperties</li>
+ * <li>propertyList</li>
  * </ul>
  * 
  * @see IPatternGroup
@@ -59,6 +65,8 @@ public final class RelalgSimplifier extends BaseGeneratedPatternGroup {
     querySpecifications.add(UnnecessaryAllDifferentOperatorQuerySpecification.instance());
     querySpecifications.add(EmptyOrSingleVariableAllDifferentOperatorQuerySpecification.instance());
     querySpecifications.add(AllDifferentOperatorEdgeVariablesQuerySpecification.instance());
+    querySpecifications.add(GetVerticesWithPropertiesQuerySpecification.instance());
+    querySpecifications.add(PropertyListQuerySpecification.instance());
   }
   
   public UnnecessaryJoinQuerySpecification getUnnecessaryJoin() throws ViatraQueryException {
@@ -99,5 +107,21 @@ public final class RelalgSimplifier extends BaseGeneratedPatternGroup {
   
   public AllDifferentOperatorEdgeVariablesMatcher getAllDifferentOperatorEdgeVariables(final ViatraQueryEngine engine) throws ViatraQueryException {
     return AllDifferentOperatorEdgeVariablesMatcher.on(engine);
+  }
+  
+  public GetVerticesWithPropertiesQuerySpecification getGetVerticesWithProperties() throws ViatraQueryException {
+    return GetVerticesWithPropertiesQuerySpecification.instance();
+  }
+  
+  public GetVerticesWithPropertiesMatcher getGetVerticesWithProperties(final ViatraQueryEngine engine) throws ViatraQueryException {
+    return GetVerticesWithPropertiesMatcher.on(engine);
+  }
+  
+  public PropertyListQuerySpecification getPropertyList() throws ViatraQueryException {
+    return PropertyListQuerySpecification.instance();
+  }
+  
+  public PropertyListMatcher getPropertyList(final ViatraQueryEngine engine) throws ViatraQueryException {
+    return PropertyListMatcher.on(engine);
   }
 }

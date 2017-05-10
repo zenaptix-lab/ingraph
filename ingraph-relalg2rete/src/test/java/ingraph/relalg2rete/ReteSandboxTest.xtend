@@ -20,7 +20,7 @@ class ReteSandboxTest extends Cypher2Relalg2Rete2TexTest {
 	@Test
 	def void q2() {
 		process('query-2', '''
-		MATCH (t:Train {number: 1})-[r:ON]->(seg1:Segment)-[:NEXT]->(seg2:Segment)
+		MATCH (t:Train {number: 2})-[r:ON]->(seg1:Segment)-[:NEXT]->(seg2:Segment)
 		DELETE r
 		CREATE (t)-[:ON]->(seg2)
 		''')

@@ -77,7 +77,7 @@ class EdgeLabelSet extends LabelSet {
  * comparable in case of a VariableComparableExpression.
  * Type check is always needed in query execution time!
  */
-class VariableExpression extends Expression {
+class VariableExpression extends ComparableExpression {
 	refers Variable variable
 	op String toString() {
 	  variable.toString()
@@ -637,7 +637,7 @@ class PropertyList extends Expression {
  */
 class PropertyListEntry {
 	String key
-	refers Expression value
+	refers ComparableExpression value
 }
 
 class Case {

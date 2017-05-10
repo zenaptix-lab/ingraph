@@ -1199,7 +1199,7 @@ class RelalgBuilder {
 			properties.entries.forEach [ e |
 				val le = createPropertyListEntry => [
 					key = e.key
-					value = buildRelalgExpression(e.value)
+					value = buildRelalgComparableElement(e.value)
 				]
 				pList.entries.add(le)
 			]
